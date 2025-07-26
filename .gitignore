@@ -1,0 +1,38 @@
+# Python cache & build files
+__pycache__/
+
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Virtual environment
+.monitoring/
+
+# Model files
+*.pth
+*.pt
+*.bin
+
+# Data files
+*.json
+*.yaml
+*.csv
+*.parquet
+*.zip
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# MLflow artifacts (if local)
+mlruns/
+
+# Docker
+*.dockerfile
+*.img
+
+# VS Code settings
+.vscode/
+
+# Prefect
+.prefect/
