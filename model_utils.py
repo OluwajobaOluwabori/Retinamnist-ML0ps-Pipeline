@@ -102,7 +102,7 @@ def evaluate(model, val_loader, device="cpu"):
 
 
 @task(name='save_model', log_prints=True)
-def save_model(model, path="resnet50_retinamnist.pth"):
+def save_model(model, path=r"model\resnet50_retinamnist.pth"):
     torch.save(model.state_dict(), path)
 
 
@@ -119,6 +119,6 @@ def train_retina_mnist():
 
 
 if __name__ == "__main__":
-    train_retina_mnist.serve(name="my-mlopsproject-deployment", cron="0 9 * * *")
+    train_retina_mnist.serve(name="my-mlopsproject-deployment", cron="0 0 * * *")
 
     train_retina_mnist()

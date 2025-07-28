@@ -7,3 +7,8 @@ run:
 test:
 	curl -X POST http://localhost:8000/predict -F "file=@img.jpg"
 	curl -X POST http://localhost:8000/predict -F "file=@img2.jpg"
+
+
+setup:
+	pip install -r requirements.txt
+	pre-commit install

@@ -8,7 +8,7 @@ from model_utils import initialize_model
 
 @pytest.fixture
 def model():
-    model_path = "resnet50_retinamnist.pth"
+    model_path = r"model\resnet50_retinamnist.pth"
     assert os.path.exists(model_path), f"Model file not found at {model_path}"
     return initialize_model()
 

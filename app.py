@@ -12,9 +12,7 @@ app = Flask(__name__)
 # Load model
 model = models.resnet50()
 model.fc = nn.Linear(model.fc.in_features, 5)
-model.load_state_dict(
-    torch.load("resnet50_retinamnist.pth", map_location=torch.device('cpu'))
-)
+model.load_state_dict(torch.load(r"model/resnet50_retinamnist.pth", map_location=torch.device('cpu')))
 model.eval()
 
 

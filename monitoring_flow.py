@@ -6,15 +6,11 @@ import pandas as pd
 import psycopg
 import torch.nn as nn
 from prefect import flow, task, get_run_logger
-from medmnist import INFO, RetinaMNIST
+from medmnist import RetinaMNIST
 from evidently import Report, Dataset, DataDefinition
 from torchvision import models, transforms
 from torch.utils.data import DataLoader
-from evidently.metrics import (
-    ValueDrift,
-    MissingValueCount,
-    DriftedColumnsCount
-)
+from evidently.metrics import ValueDrift, MissingValueCount, DriftedColumnsCount
 
 # ---------------------------
 # Config
@@ -22,7 +18,7 @@ from evidently.metrics import (
 
 DRIFT_THRESHOLD = 0.3  # if dataset drift is detected (True), alert/retrain
 BATCH_SIZE = 64
-MODEL_PATH = "resnet50_retinamnist.pth"
+MODEL_PATH = r"model\resnet50_retinamnist.pth"
 REPORTS_DIR = "reports"
 os.makedirs(REPORTS_DIR, exist_ok=True)
 
@@ -38,16 +34,6 @@ CREATE TABLE IF NOT EXISTS retina_metrics (
     sample_size INT
 );
 """
-
-# ---------------------------
-# Torch model (match your training code)
-# ---------------------------
-
-# Load model
-# model = models.resnet50()
-# model.fc = nn.Linear(model.fc.in_features, 5)
-# model.load_state_dict(torch.load("resnet50_retinamnist.pth",map_location=torch.device('cpu')))
-# model.eval()
 
 
 # ---------------------------
@@ -124,9 +110,7 @@ def prep_db():
 def load_model(device="cpu"):
     model = models.resnet50()
     model.fc = nn.Linear(model.fc.in_features, 5)
-    model.load_state_dict(
-        torch.load("resnet50_retinamnist.pth", map_location=torch.device('cpu'))
-    )
+    model.load_state_dict(torch.load(r"model\resnet50_retinamnist.pth", map_location=torch.device(device)))
     model.eval()
 
     return model
@@ -215,9 +199,7 @@ def persist_metrics_to_db(result: dict):
     dataset_drift, share, n_drifted = _extract_drift_info(result)
     sample_size = result.get("meta", {}).get("current", {}).get("number_of_rows", None)
 
-    logger.info(
-        f"Drift: {dataset_drift}, share_drifted={share}, n_drifted={n_drifted}, n={sample_size}"
-    )
+    logger.info(f"Drift: {dataset_drift}, share_drifted={share}, n_drifted={n_drifted}, n={sample_size}")
 
     with psycopg.connect(CONNECTION_STRING_DB, autocommit=True) as conn:
         with conn.cursor() as cur:
@@ -234,9 +216,7 @@ def maybe_alert_or_retrain(dataset_drift: bool, share: float):
     should_trigger = dataset_drift or (share is not None and share > DRIFT_THRESHOLD)
 
     if should_trigger:
-        logger.warning(
-            "🚨 Drift threshold exceeded! Triggering conditional workflow..."
-        )
+        logger.warning("🚨 Drift threshold exceeded! Triggering conditional workflow...")
 
     else:
         logger.info("✅ No drift action required.")
