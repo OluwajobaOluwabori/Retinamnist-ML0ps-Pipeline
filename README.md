@@ -26,8 +26,8 @@ Key components include:
 ├── Makefile # Build, test, and deployment commands
 ├── docker-compose.yaml     # Compose setup for Grafana, Postgres, Adminer
 ├── tests/ # Unit & integration tests
-│ ├── test_model.py
-│ └── test_app.py
+│ ├── test_model.py → Unit Test
+│ └── test_app.py → Integration Test
 ├── requirements.txt # Python dependencies
 └── README.md # Project documentation
 ```
