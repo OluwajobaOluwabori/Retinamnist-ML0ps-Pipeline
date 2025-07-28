@@ -9,7 +9,6 @@ __pycache__/
 .monitoring/
 
 # Model files
-*.pth
 *.pt
 *.bin
 

@@ -4,7 +4,7 @@ This repository contains an **end-to-end MLOps pipeline** for the [RetinaMNIST d
 
 ## 🚀 Project Overview
 
-The goal is to build a robust ML pipeline for **diabetic retinopathy severity prediction (ordinal regression)** using the RetinaMNIST dataset (3x224x224 retina fundus images).  
+The goal is to build a robust ML pipeline for **diabetic retinopathy severity prediction (ordinal regression)** using the RetinaMNIST dataset (3x224x224 retina fundus images).
 Key components include:
 
 - **Data preparation** using MedMNIST.
@@ -50,24 +50,24 @@ Key components include:
 - **License**: CC BY 4.0.
 
 ## ⚙️ Setup Instructions
-1. **Clone the repo**  
+1. **Clone the repo**
    ```bash
    git clone https://github.com/<your-username>/retina-mlops-project.git
    cd retina-mlops-project
    ```
 
-2. **Create & activate a Conda env**  
+2. **Create & activate a Conda env**
      ```bash
      conda create -n retina-mlops python=3.10 -y
-     conda activate retina-mlops 
+     conda activate retina-mlops
      ```
-     
-3. **Install dependencies**  
+
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **(Optional) Install pre‑commit hooks**  
+4. **(Optional) Install pre‑commit hooks**
    ```bash
    pip install pre-commit
    pre-commit install
@@ -83,7 +83,7 @@ Run and deploy the Prefect training flow (which logs to MLflow and Prefect) with
    ```bash
   prefect server start
    ```
-   
+
   Once it’s running:
    ```bash
    python model_utils.py
@@ -104,7 +104,7 @@ Containerized Flask API serving predictions.
    ```
 API endpoint: http://127.0.0.1:5001/predict
 CURL: curl -X POST http://localhost:8000/predict -F "file=@img.jpg"
-   
+
 ## 🔍 Monitoring
 To run the Prefect monitoring flow (Evidently + PostgreSQL + alerting)-checks data drift and logs metrics:
    ```bash
@@ -117,7 +117,7 @@ To run the Prefect monitoring flow (Evidently + PostgreSQL + alerting)-checks da
  - Access grafana: http://localhost:3000/
 
 
-## ✅ Testing 
+## ✅ Testing
 - Run tests:
    ```bash
    pytest tests/ -v
