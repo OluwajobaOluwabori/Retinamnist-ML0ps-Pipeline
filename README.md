@@ -18,7 +18,7 @@ Key components include:
 ## 📂 Project Structure
 
 ```text
-├── models/ # Saved models (ResNet-50 .pth)
+├── model/ # Saved models (ResNet-50 .pth)
 ├── app.py # Flask API for serving predictions
 ├── monitoring_flow.py # Prefect flow for model/data monitoring
 ├── model_utils.py # Utilities for model training pipeline and tracking with MLflow
@@ -136,9 +136,16 @@ To run the Prefect monitoring flow (Evidently + PostgreSQL + alerting)-checks da
    make build
    ```
 
-## How to Run
+## How to Run(i.e., Build the Docker image & Run the Docker container)
+- Docker
 ```bash
 docker build -t retina-app .
 docker run -p 8000:8000 retina-app
+curl -X POST http://localhost:8000/predict -F "file=@img.jpg"
+```
+- Make
+```bash
+make build 
+make run 
 curl -X POST http://localhost:8000/predict -F "file=@img.jpg"
 ```
